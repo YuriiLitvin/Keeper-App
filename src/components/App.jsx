@@ -14,14 +14,14 @@ function App() {
         .then((data) => setData(data.message));
     });
 
-    function addItem(note) {
-        setNotes(prevItems => {
-            return [
-                ...prevItems,
-                note
-            ]
-        });
-    }
+    // function addItem(note) {
+    //     setNotes(prevItems => {
+    //         return [
+    //             ...prevItems,
+    //             note
+    //         ]
+    //     });
+    // }
 
     function deleteItem(id) {
         setNotes(prevNotes => {
@@ -34,7 +34,8 @@ function App() {
     return (
         <div>
             <Header />
-            <CreateArea onAdd = {addItem}/>
+            {/* <CreateArea onAdd = {addItem}/> */}
+            <CreateArea />
             {notes.map((note, index) => (
                 <Note 
                     key = {index}

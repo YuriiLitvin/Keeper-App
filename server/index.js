@@ -8,6 +8,15 @@ app.get("/api", (req, res) => {
     res.json({ message: "Hello from server" });
 });
 
+app.post("/api", (req, res) => {
+    console.log(req.body.title);
+});
+
+
+
+
+
+
 
 const PORT = process.env.PORT || 3001;
 
