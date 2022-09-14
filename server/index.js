@@ -6,20 +6,20 @@ const app = express();
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/taskDB");
+mongoose.connect("mongodb://localhost:27017/noteDB");
 
 const noteSchema = new mongoose.Schema({
     title: String,
     content: String
 });
 
-const Task = mongoose.model("Task", noteSchema);
+const Note = mongoose.model("Note", noteSchema);
 
 
 
 
 app.get("/api", (req, res) => {
-    Task.find({}, (err, notes) => {
+    Note.find({}, (err, notes) => {
         if (err) {
             console.log(err);
         } else {
@@ -31,28 +31,26 @@ app.get("/api", (req, res) => {
 
 app.post("/api", (req, res) => {
     const postedNote = req.body;
-    const task = new Task({
+    const note = new Note({
         title: postedNote.title,
         content: postedNote.content
     });
 
-    task.save();
+    note.save();
 });
 
 app.delete("/api", (req, res) => {
     const id = req.body.itemId;
-    // console.log(noteToDelete.itemId);
-    Task.deleteOne({ _id: id }, (err) => {
+    Note.deleteOne({ _id: id }, (err) => {
         if (err) {
             console.log(err);
         } else {
             console.log("Item deleted");
+            res.setHeader("Content-Type", "application/json");
+            res.send({ "message": "Item removed" });
         }
     });
 });
-
-
-
 
 
 const PORT = process.env.PORT || 3001;
