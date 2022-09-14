@@ -21,14 +21,14 @@ function CreateArea(props) {
         });
     }
 
-    // function submitNote(event) {
-    //     event.preventDefault();
-    //     props.onAdd(note);
-    //     setNote({
-    //         title: "",
-    //         content: ""
-    //     });
-    // }
+    function addNote(event) {
+        event.preventDefault();
+        props.onAdd(note);
+        setNote({
+            title: "",
+            content: ""
+        });
+    }
 
     function handleClick() {
         setIsClicked(true);
@@ -36,7 +36,7 @@ function CreateArea(props) {
     
     return (
         <div>
-            <form className="create-note" action="/api" method="post">
+            <form className="create-note" >
                 {isClicked && <input 
                     id="title" 
                     name="title" 
@@ -54,8 +54,7 @@ function CreateArea(props) {
                     onClick={handleClick}
                 />
                 <Zoom in={isClicked}>
-                    {/* <Fab color="primary" onClick={submitNote}> */}
-                    <Fab color="primary" type="submit">
+                    <Fab color="primary" onClick={addNote}>
                         <AddIcon />
                     </Fab>
                 </Zoom>

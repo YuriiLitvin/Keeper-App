@@ -6,46 +6,48 @@ import CreateArea from "./CreateArea";
 
 function App() {
     const [notes, setNotes] = useState([]);
-    const [data, setData] = useState(null);
 
     useEffect(() => {
         fetch("/api")
         .then((res) => res.json())
-        .then((data) => setData(data.message));
+        .then((notes) => setNotes(notes));
     });
 
-    // function addItem(note) {
-    //     setNotes(prevItems => {
-    //         return [
-    //             ...prevItems,
-    //             note
-    //         ]
-    //     });
-    // }
+
+    function addItem(note) {
+        fetch("/api", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title: note.title, content: note.content })
+        })
+        .then(res => res.json())
+        .then(res => console.log(res));
+    }
+
 
     function deleteItem(id) {
-        setNotes(prevNotes => {
-            return prevNotes.filter((noteItem, index) => {
-                return index !== id;    
-            });
-        });
+        fetch("/api", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ itemId: id })
+        })
+        .then(res => res.json())
+        .then(res => console.log(res));
     }
 
     return (
         <div>
             <Header />
-            {/* <CreateArea onAdd = {addItem}/> */}
-            <CreateArea />
+            <CreateArea onAdd = {addItem}/>
             {notes.map((note, index) => (
                 <Note 
                     key = {index}
-                    id = {index}
+                    id = {note._id}
                     title = {note.title}
                     content = {note.content}
                     onDelete = {deleteItem}
                 />
             ))}
-            <p>{!data ? "Loading" : data }</p>
             <Footer />
         </div>
     );
