@@ -20,8 +20,7 @@ function App() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ title: note.title, content: note.content })
         })
-        .then(res => res.json())
-        .then(res => console.log(res));
+        .then(res => console.log(res.status));
     }
 
 
@@ -31,8 +30,7 @@ function App() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ itemId: id })
         })
-        .then(res => res.json())
-        .then(res => console.log(res));
+        .then(res => console.log(res.status));
     }
 
     return (

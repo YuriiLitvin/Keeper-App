@@ -16,20 +16,20 @@ app.get("/api", (req, res) => {
 
 app.post("/api", (req, res) => {
     const note = req.body;
-    db.addItem(note);
+    db.addItem(note)
+        .then(() => {
+            res.sendStatus(200);
+        });
 });
 
 app.delete("/api", (req, res) => {
     const id = req.body.itemId;
-
     db.deleteItem(id)
         .then(() => {
-            res.setHeader("Content-Type", "application/json");
-            res.send({ "message": "Item removed" });
+            res.sendStatus(200);
         }
     );
 });
-
 
 const PORT = process.env.PORT || 3001;
 
