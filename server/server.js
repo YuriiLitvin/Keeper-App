@@ -6,7 +6,7 @@ const db = require("./db");
 
 const app = express();
 
-app.use(express.static(path.resolve(_dirname, "../client/build")));
+app.use(express.static(path.resolve(__dirname, "../client/build")));
 app.use(bodyParser.json());
 
 app.get("/api", (req, res) => {
